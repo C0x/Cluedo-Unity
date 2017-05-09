@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameboardManager : MonoBehaviour 
 {
-    private const float TILE_SIZE = 1f;
+    private const float TILE_SIZE = .8f;
     private const float TILE_OFFSET = TILE_SIZE / 2;
 
     private const int NUMBER_OF_TILES_X = 25;
