@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour {
 
 		foreach (var pawn in PawnsInGame)
 		{
-			Pawn p = Instantiate(pawn, pawn.transform.position, pawn.transform.rotation);
+			Instantiate(pawn, pawn.transform.position, pawn.transform.rotation);
 		}
 	}
 
