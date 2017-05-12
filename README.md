@@ -9,3 +9,9 @@ That's the reason that everything I use in this project (3D models, textures, ..
 
 ### Contributions
 It's a personal project and I find GitHub an easy way to use as a backup, but feel free to contribute or help me with this project ;)
+
+### Credits
+While it's my goal to learn about modeling & texturing, I still used some existing assets for the
+more complex models.
+
+- Revolver: https://www.youtube.com/watch?v=Hq1nc6RXobw
