@@ -4,41 +4,32 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 
-	public Pawn WhitePrefab;
-	public Pawn GreenPrefab;
-	public Pawn BluePrefab;
-	public Pawn PurplePrefab;
-	public Pawn YellowPrefab;
-	public Pawn RedPrefab;
-
-	private List<Pawn> PawnsInGame;
+	private GameObject gameBoard;
+	private List<int> PawnIds;
 
 	void Start()
 	{
-		SpawnPawns();
+		DebugSetup();
+	}
+
+	void Update()
+	{		
 	}
 
 	private void DebugSetup()
 	{
 		//debug
-		PawnsInGame = new List<Pawn>();
-		PawnsInGame.Add(WhitePrefab);
-		PawnsInGame.Add(GreenPrefab);
-		PawnsInGame.Add(BluePrefab);
-		PawnsInGame.Add(PurplePrefab);
-		PawnsInGame.Add(YellowPrefab);
-		PawnsInGame.Add(RedPrefab);
+		GameObject gameBoard = GameObject.Find("GameBoard");
+		GameboardManager gameboardManager = gameBoard.GetComponent<GameboardManager>();
+
+		PawnIds = new List<int>();
+		PawnIds.Add(1);
+		PawnIds.Add(2);
+		PawnIds.Add(3);
+		PawnIds.Add(4);
+		PawnIds.Add(5);
+		PawnIds.Add(6);
+
+		gameboardManager.SpawnPawns(PawnIds);
 	}
-
-	private void SpawnPawns() 
-	{
-		DebugSetup();
-
-		foreach (var pawn in PawnsInGame)
-		{
-			Instantiate(pawn, pawn.transform.position, pawn.transform.rotation);
-		}
-	}
-
-
 }

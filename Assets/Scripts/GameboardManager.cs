@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameboardManager : MonoBehaviour 
@@ -10,25 +11,79 @@ public class GameboardManager : MonoBehaviour
     private const int NUMBER_OF_TILES_X = 25;
     private const int NUMBER_OF_TILES_Y = 25;
 
-    private int selectionX = -1;
-    private int selectionY = -1;
+	public Pawn WhitePrefab;
+	public Pawn GreenPrefab;
+	public Pawn BluePrefab;
+	public Pawn PurplePrefab;
+	public Pawn YellowPrefab;
+	public Pawn RedPrefab;
 
-    public Transform InvisibleDefaultTilePrefab;
+    public GameObject InvisibleDefaultTilePrefab;
     public List<GameObject> SpawnPoints;
-    public List<GameObject> AccessibleTiles;
+    public List<GameObject> DoorTiles;
+    public List<GameObject> SecretEntrances;
+    
+    private List<GameObject> DefaultTiles;
+    private List<Pawn> PawnsInGame;
+	private Pawn CurrentPlayer;
+    private List<GameObject> AccessibleTiles;
 
     void Start() 
     {
-        InitializeDefaultTiles();        
+        InitializeDefaultTiles();
+        AccessibleTiles = DoorTiles
+                            .Concat(DoorTiles)
+                            .Concat(SecretEntrances)
+                            .Concat(DefaultTiles)
+                            .ToList();
     }
 
     void Update() 
     {
         DrawGameBoard(); //debug purpose only
+
+        if (Input.GetKeyDown("space"))
+		{
+			//Simulate dice roll here
+			int die1 = Random.Range(1, 7);
+			int die2 = Random.Range(1, 7);
+
+            Debug.Log("Die 1 rolled: " + die1);
+            Debug.Log("Die 2 rolled: " + die2);
+
+			if (!CurrentPlayer.InSpawn) 
+			{
+				CurrentPlayer.SearchAvailableMoves(AccessibleTiles, die1 + die2);
+			} 
+			else 
+			{
+				GameObject curTile = null;
+
+				switch (CurrentPlayer.Id)
+				{
+					case 1: curTile = GameObject.Find("WhiteSpawn"); break;
+					case 2: curTile = GameObject.Find("GreenSpawn"); break;
+					case 3: curTile = GameObject.Find("BlueSpawn"); break;
+					case 4: curTile = GameObject.Find("PurpleSpawn"); break;
+					case 5: curTile = GameObject.Find("YellowSpawn"); break;
+					case 6: curTile = GameObject.Find("RedSpawn"); break;
+				}
+
+				Debug.Assert(curTile != null, "Current tile can't be null!");
+
+				CurrentPlayer.SearchAvailableMoves(curTile, AccessibleTiles, die1 + die2);
+			}			
+		}
+
     }
 
+    ///<summary>
+    /// Spawns empty gameobjects that represent "DefaultTiles"
+    ///<summary/>
     private void InitializeDefaultTiles()
     {
+        this.DefaultTiles = new List<GameObject>();
+
         for (int i = 0; i < NUMBER_OF_TILES_Y; i++) 
         {
             for (int j = 0; j < NUMBER_OF_TILES_X; j++) 
@@ -74,11 +129,49 @@ public class GameboardManager : MonoBehaviour
 
                 #endregion
 
-                Transform tile = (Transform) Instantiate(InvisibleDefaultTilePrefab, new Vector3(i + TILE_OFFSET, 0.7f, j + TILE_OFFSET), Quaternion.identity);
+                GameObject tile = (GameObject) Instantiate(InvisibleDefaultTilePrefab, new Vector3(i + TILE_OFFSET, 0.7f, j + TILE_OFFSET), Quaternion.identity);
                 tile.name = "DefaultTile" + i + "-" + j;
-                tile.parent = this.transform;
+                tile.transform.parent = this.transform;
+                this.DefaultTiles.Add(tile);
             }
         }
+    }
+
+    public void SpawnPawns(List<int> pawnIds)
+    {
+        PawnsInGame = new List<Pawn>(pawnIds.Count);
+
+        for (int i = 0; i < pawnIds.Count; i++) 
+        {
+            switch(pawnIds[i])
+            {
+                case 1: 
+                    PawnsInGame.Add(WhitePrefab);
+                    break;
+                case 2:
+                    PawnsInGame.Add(GreenPrefab);
+                    break;
+                case 3:
+                    PawnsInGame.Add(BluePrefab);
+                    break;
+                case 4:
+                    PawnsInGame.Add(PurplePrefab);
+                    break;
+                case 5:
+                    PawnsInGame.Add(YellowPrefab);
+                    break;
+                case 6:
+                    PawnsInGame.Add(RedPrefab);
+                    break;
+                default:
+                    Debug.LogError("Pawn ID not existing!");
+                    break;
+            }
+
+            Instantiate(PawnsInGame[i], PawnsInGame[i].transform.position, PawnsInGame[i].transform.rotation);
+        }
+
+        CurrentPlayer = PawnsInGame[0];
     }
 
     ///<summary>
