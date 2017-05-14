@@ -13,8 +13,6 @@ public class ClickableTile : MonoBehaviour {
 
 	void OnMouseUp()
 	{
-		Debug.Log(TileX + "," + TileY);
-
 		Map.CalculatePathTo(TileX, TileY);
 	}
 

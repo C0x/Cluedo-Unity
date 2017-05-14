@@ -5,9 +5,11 @@ using UnityEngine;
 
 public class TileMap : MonoBehaviour {
 
-	public List<Pawn> PawnPrefabs;
-	public GameObject SelectedPawn;
+	[Header("Pawns")]
+	public List<GameObject> PawnPrefabs;
+	private GameObject SelectedPawn;
 
+	[Header("Map")]
 	[SerializeField]
 	private int mapSizeX = 25;
 	[SerializeField]
@@ -29,25 +31,24 @@ public class TileMap : MonoBehaviour {
 	private Node[,] graph;
 	private List<Node> currentPath;
 
+	private List<GameObject> SpawnedPawns;
+
 
 	void Start()
 	{
-		//Setup selected pawn variables
-		SelectedPawn.GetComponent<Pawn>().TileX = (int) SelectedPawn.transform.position.x;
-		SelectedPawn.GetComponent<Pawn>().TileY = (int) SelectedPawn.transform.position.z;
-		SelectedPawn.GetComponent<Pawn>().Map = this;
+		SpawnAllPawns();
+
+		//Setup all pawn start variables
+		foreach (var pawn in SpawnedPawns)
+		{
+			pawn.GetComponent<Pawn>().TileX = (int) pawn.transform.position.x;
+			pawn.GetComponent<Pawn>().TileY = (int) pawn.transform.position.z;
+			pawn.GetComponent<Pawn>().Map = this;
+		}
 
 		GenerateMapData();
 		GenerateGraph();
 		GenerateMapVisual();
-
-		for (int x = 0; x < mapSizeX; x++) 
-        {
-            for (int y = 0; y < mapSizeY; y++) 
-            {
-				Debug.Log(x + "-" + y + ": " + tiles[x,y]);
-            }
-        }
 	}
 
 	void Update()
@@ -308,6 +309,9 @@ public class TileMap : MonoBehaviour {
 		}
 	}
 
+
+	#region Debug methods
+
 	///<summary>
 	///	Debug method to draw grid
 	///</summary>
@@ -332,5 +336,23 @@ public class TileMap : MonoBehaviour {
             }
         }
     }
+
+	///<summary>
+	/// Debug method to spawn all pawns
+	///</summary>
+	private void SpawnAllPawns()
+	{
+		SpawnedPawns = new List<GameObject>();
+
+		foreach (var pawn in PawnPrefabs)
+		{
+			GameObject go = (GameObject) Instantiate(pawn, pawn.transform.position, pawn.transform.rotation);
+			SpawnedPawns.Add(go);
+		}
+
+		SelectedPawn = SpawnedPawns[0];
+	}
+
+	#endregion
 
 }
