@@ -7,7 +7,7 @@
       <x>440</x>
       <y>290</y>
       <w>340</w>
-      <h>280</h>
+      <h>290</h>
     </coordinates>
     <panel_attributes>TileMap : MonoBehaviour
 -
@@ -21,6 +21,8 @@
 + PawnPrefabs : List&lt;Pawn&gt;
 -
 ~ Start() : void
+- CostToEnterTile(x:int,y:int) : float
++ PawnCanEnterTile(x:int,y:int) : bool
 - GenerateMapData() : void
 - GenerateGraph() : void
 - GenerateMapVisual() : void
@@ -41,7 +43,8 @@
 TileType
 -
 + Name : string
-+ InvisiblePrefab : InvisiblePrefab</panel_attributes>
++ InvisiblePrefab : InvisiblePrefab
++ CanBeEntered : bool</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -68,7 +71,7 @@ ROOM</panel_attributes>
       <x>580</x>
       <y>640</y>
       <w>240</w>
-      <h>150</h>
+      <h>180</h>
     </coordinates>
     <panel_attributes>Pawn : MonoBehaviour
 -
@@ -78,8 +81,10 @@ ROOM</panel_attributes>
 + TileY : int
 + Map : TileMap
 + CurrentPath : List&lt;TileMap.Node&gt;
+- MoveSpeed : float
 -
-~ Update() : void</panel_attributes>
+~ Update() : void
++ MoveNextTile() : void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -122,23 +127,23 @@ Node
     <id>Relation</id>
     <coordinates>
       <x>600</x>
-      <y>560</y>
+      <y>570</y>
       <w>90</w>
-      <h>100</h>
+      <h>90</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>70.0;10.0;10.0;80.0</additional_attributes>
+    <additional_attributes>70.0;10.0;10.0;70.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>470</x>
-      <y>560</y>
+      <y>570</y>
       <w>70</w>
-      <h>100</h>
+      <h>90</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;50.0;80.0</additional_attributes>
+    <additional_attributes>10.0;10.0;50.0;70.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
