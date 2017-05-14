@@ -6,41 +6,68 @@ public class Pawn : MonoBehaviour {
 
 	public int Id;
 	public string Name;
-	public bool InSpawn;
+	
+	public int TileX;
+	public int TileY;
+
+	[HideInInspector]
+	public TileMap Map;
+	
+	public List<Node> CurrentPath = null;
 
 
-	public List<GameObject> SearchAvailableMoves(List<GameObject> AccessibleTiles, int maxMoves)
+	void Update()
 	{
-		Vector3 curPos = this.transform.position;
-		GameObject curTile = null;
+		DrawLine();
 
-		foreach (var tile in AccessibleTiles) 
+		//If pawn is close to destination, move to next tile
+		if (Vector3.Distance(this.transform.position, Map.TileCoordToWorldCoord(TileX, TileY)) < .1f)
 		{
-			if (tile.transform.position == curPos)
+			MoveToNextTile();
+		}
+	
+		//Smooth animation	
+		this.transform.position = Vector3.Lerp(this.transform.position, Map.TileCoordToWorldCoord(TileX, TileY), 5f * Time.deltaTime);		
+	}
+
+	public void MoveToNextTile()
+	{
+		if (CurrentPath == null)
+			return;
+
+		this.transform.position = Map.TileCoordToWorldCoord(TileX, TileY);
+
+		//Assign next tile
+		TileX = CurrentPath[1].X;
+		TileY = CurrentPath[1].Y;
+
+		//remove current tile from pathfinding list
+		CurrentPath.RemoveAt(0);
+
+		if (CurrentPath.Count == 1)
+		{
+			CurrentPath = null;
+		}
+	}
+
+	///<summary>
+	///	Draws debugline of found path
+	///</summary>
+	private void DrawLine()
+	{
+		if (CurrentPath != null)
+		{
+			int curNode = 0;
+
+			while (curNode < CurrentPath.Count - 1)
 			{
-				curTile = tile;
-				break;
+				Vector3 start = Map.TileCoordToWorldCoord( CurrentPath[curNode].X, CurrentPath[curNode].Y);
+				Vector3 end = Map.TileCoordToWorldCoord( CurrentPath[curNode + 1].X, CurrentPath[curNode + 1].Y);
+				Debug.DrawLine(start, end, Color.blue);
+
+				curNode++;
 			}
 		}
-
-		if (curTile != null) 
-		{
-			return Search(curTile, AccessibleTiles, maxMoves);
-		} 
-
-		return null;
 	}
-
-	public List<GameObject> SearchAvailableMoves(GameObject curTile, List<GameObject> accessibleTiles, int maxMoves)
-	{
-		return Search(curTile, accessibleTiles, maxMoves);
-	}
-
-	private List<GameObject> Search(GameObject curTile, List<GameObject> accessibleTiles, int maxMoves)
-	{
-		//TODO: path finding
-
-		return null;
-	}
-
+	
 }
