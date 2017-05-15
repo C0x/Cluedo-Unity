@@ -4,38 +4,43 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>440</x>
-      <y>290</y>
+      <x>350</x>
+      <y>230</y>
       <w>340</w>
-      <h>290</h>
+      <h>380</h>
     </coordinates>
     <panel_attributes>TileMap : MonoBehaviour
 -
-+ SelectedUnit : GameObject
++ PawnPrefabs : List&lt;Pawn&gt;
++ SelectedPawn : GameObject
+- MapSizeX : int
+- MapSizeY : int
 - tileTypes[] : TileType
 - tiles[][] : ETileType
 - graph[][] : Node
 - currentPath : List&lt;Node&gt;
-+ MapSizeX : int
-+ MapSizeY : int
-+ PawnPrefabs : List&lt;Pawn&gt;
+- spawnedPawns : List&lt;GameObject&gt;
 -
 ~ Start() : void
-- CostToEnterTile(x:int,y:int) : float
-+ PawnCanEnterTile(x:int,y:int) : bool
+~ Update() : void
 - GenerateMapData() : void
 - GenerateGraph() : void
 - GenerateMapVisual() : void
++ CalculatePathTo(x:int,y:int) : void
++ CostToEnterTile(x:int,y:int) : float
 + TileCoordToWorldCoord(x:int,y:int) : Vector3
-+ GeneratePathTo(x:int,y:int) : void
-+ SpawnPawns(spawnIds:int[]) : void</panel_attributes>
++ PawnCanEnterTile(x:int,y:int) : bool
++ SpawnPawns(spawnIds:int[]) : void
+- DrawLines() : void
+- SpawnAllPawns() : void
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>480</x>
-      <y>70</y>
+      <x>380</x>
+      <y>60</y>
       <w>220</w>
       <h>130</h>
     </coordinates>
@@ -50,8 +55,8 @@ TileType
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>730</x>
-      <y>70</y>
+      <x>630</x>
+      <y>60</y>
       <w>160</w>
       <h>130</h>
     </coordinates>
@@ -68,8 +73,8 @@ ROOM</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>580</x>
-      <y>640</y>
+      <x>30</x>
+      <y>430</y>
       <w>240</w>
       <h>180</h>
     </coordinates>
@@ -81,17 +86,18 @@ ROOM</panel_attributes>
 + TileY : int
 + Map : TileMap
 + CurrentPath : List&lt;TileMap.Node&gt;
-- MoveSpeed : float
 -
 ~ Update() : void
-+ MoveNextTile() : void</panel_attributes>
++ MoveNextTile() : void
+-
+- DrawLine() : void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>320</x>
-      <y>640</y>
+      <x>50</x>
+      <y>260</y>
       <w>220</w>
       <h>110</h>
     </coordinates>
@@ -107,10 +113,10 @@ ROOM</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>180</x>
-      <y>70</y>
+      <x>80</x>
+      <y>60</y>
       <w>200</w>
-      <h>150</h>
+      <h>140</h>
     </coordinates>
     <panel_attributes>[PUBLIC INNERCLASS]
 Node
@@ -126,74 +132,74 @@ Node
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>600</x>
-      <y>570</y>
-      <w>90</w>
-      <h>90</h>
+      <x>260</x>
+      <y>480</y>
+      <w>110</w>
+      <h>60</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>70.0;10.0;10.0;70.0</additional_attributes>
+    <additional_attributes>90.0;10.0;10.0;40.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>470</x>
-      <y>570</y>
-      <w>70</w>
-      <h>90</h>
+      <x>260</x>
+      <y>290</y>
+      <w>110</w>
+      <h>80</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;50.0;70.0</additional_attributes>
+    <additional_attributes>90.0;60.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>580</x>
-      <y>190</y>
-      <w>30</w>
-      <h>120</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>760</x>
-      <y>190</y>
-      <w>70</w>
-      <h>120</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>50.0;10.0;10.0;100.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>370</x>
-      <y>170</y>
-      <w>120</w>
-      <h>140</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;100.0;120.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>110</x>
-      <y>80</y>
-      <w>90</w>
+      <x>480</x>
+      <y>180</y>
+      <w>40</w>
       <h>70</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>70.0;10.0;10.0;10.0;10.0;50.0;70.0;50.0</additional_attributes>
+    <additional_attributes>10.0;10.0;20.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>670</x>
+      <y>180</y>
+      <w>60</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>40.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>270</x>
+      <y>160</y>
+      <w>130</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;110.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>30</x>
+      <y>70</y>
+      <w>70</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>50.0;10.0;10.0;10.0;10.0;50.0;50.0;50.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1130</x>
-      <y>50</y>
+      <x>480</x>
+      <y>680</y>
       <w>200</w>
       <h>220</h>
     </coordinates>
@@ -216,10 +222,10 @@ Node
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1090</x>
-      <y>280</y>
+      <x>690</x>
+      <y>680</y>
       <w>240</w>
-      <h>180</h>
+      <h>160</h>
     </coordinates>
     <panel_attributes>CameraController : MonoBehaviour
 -
@@ -231,6 +237,187 @@ Node
 + MaxY : float
 -
 ~ Update() : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>860</x>
+      <y>60</y>
+      <w>290</w>
+      <h>270</h>
+    </coordinates>
+    <panel_attributes>GameManager : MonoBehaviour
+-
++ Round : int
++ CollapsablePanels : List&lt;CanvasGroup&gt;
++ Images : List&lt;CanvasGroup&gt;
+- persistentData : PersistentData
+- currentIndex : int
+- players : Player[]
+- numberOfPlayers : int
+-
+~ Start() : void
+~ Update() : void
+- LoadPersistentData() : void
+- InitGui() : void
+- ToggleCurrentPlayerPanels() : void
+- CollapseAllPanels() : void
+-
+- DebugPlayers() : Player[]
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>870</x>
+      <y>400</y>
+      <w>260</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>PersistentData : MonoBehaviour
+-
++ Players : Player[]
+-
+~ Awake() : void
++ SaveSettings(players : Player[]) : void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1230</x>
+      <y>270</y>
+      <w>210</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>Player
+-
+*- _number : int*
+*- _name : string*
+*- _isCpu : bool*
+*- _color : Color*
++ Number : int
++ Name : string
++ IsCpu : bool
++ Color : Color
+-
++ Player(number:int,name:string,isCpu:bool,color:Color)
++ ToString() : string</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1140</x>
+      <y>240</y>
+      <w>110</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>90.0;100.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1120</x>
+      <y>410</y>
+      <w>130</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>110.0;10.0;10.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>20</x>
+      <y>10</y>
+      <w>1450</w>
+      <h>610</h>
+    </coordinates>
+    <panel_attributes>Game
+--
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>20</x>
+      <y>630</y>
+      <w>410</w>
+      <h>340</h>
+    </coordinates>
+    <panel_attributes>Menu
+--
+bg=Green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>30</x>
+      <y>660</y>
+      <w>170</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>Credits : MonoBehaviour
+-
++ Back() : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>210</x>
+      <y>660</y>
+      <w>200</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>MainMenu : MonoBehaviour
+-
++ StartGame() : void
++ Credits() : void
++ Quit() : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>30</x>
+      <y>760</y>
+      <w>270</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>StartGame : MonoBehaviour
+-
++ HideablePanels : List&lt;CanvasGroup&gt;
++ PlayerNames : List&lt;InputField&gt;
++ IsCpuToggles : List&lt;Toggle&gt;
+- persistentData : PersistentData
+- numberOfPlayers : int
+-
+~ Start() : void
++ OnValueChanged(index : int) : void
++ Play() : void
++ Back() : void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>470</x>
+      <y>650</y>
+      <w>480</w>
+      <h>270</h>
+    </coordinates>
+    <panel_attributes>Misc
+--
+bg=blue</panel_attributes>
     <additional_attributes/>
   </element>
 </diagram>
