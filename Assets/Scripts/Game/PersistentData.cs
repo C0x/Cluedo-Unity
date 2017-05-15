@@ -5,21 +5,17 @@ using UnityEngine;
 
 public class PersistentData : MonoBehaviour {
 
-	public Dropdown Dropdown;
-	public List<InputField> PlayerNameFields;
-	public List<Toggle> IsCpuToggles;
-
 	[HideInInspector]
-	public List<string> PlayerNames;
+	public Player[] Players;
 
 	void Awake()
 	{
 		DontDestroyOnLoad(this.transform.gameObject);
 	}
 
-	public int GetNumberOfPlayers()
+	public void SaveSettings(Player[] players)
 	{
-		return PlayerNames.Count;
+		this.Players = players;
 	}
 
 }
