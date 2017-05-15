@@ -36,6 +36,7 @@ public class StartGame : MonoBehaviour {
 	public void Back()
 	{
 		Debug.Log("Back");
+		Destroy(GameObject.Find("PersistentData"));
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
 	}
 
