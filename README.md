@@ -18,5 +18,5 @@ more complex models.
 
 ### Screenshots
 Screenshots of early development:
-![Screenshot 1](http://imgur.com/a/yrvNx)
-![Screenshot 2](http://imgur.com/a/jIL9P)
+![Screenshot 1](http://i.imgur.com/H67HpxH.png)
+![Screenshot 2](http://i.imgur.com/1PQhGPx.png)
