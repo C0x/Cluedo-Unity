@@ -15,3 +15,8 @@ While it's my goal to learn about modeling & texturing, I still used some existi
 more complex models.
 
 - Revolver: https://www.youtube.com/watch?v=Hq1nc6RXobw
+
+### Screenshots
+Screenshots of early development:
+![Screenshot 1](http://imgur.com/a/yrvNx)
+![Screenshot 2](http://imgur.com/a/jIL9P)
