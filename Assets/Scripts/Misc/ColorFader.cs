@@ -1,7 +1,11 @@
 ﻿using UnityEngine;
 
-public class ColorFader : MonoBehaviour {
-	
+///<summary>
+/// Script that allows to fade between 2 colors
+/// Used to highlight all tiles a use can reach after diceroll
+///</summary>
+public class ColorFader : MonoBehaviour 
+{	
 	public bool IsEnabled = true;
 
 	public float FadeDuration = 1f;

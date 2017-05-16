@@ -4,8 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class TileMap : MonoBehaviour {
-
+///<summary>
+/// Handles gameboard logic
+/// Handles pawn movement
+///</summary>
+public class TileMap : MonoBehaviour 
+{
 	[Header("Pawns")]
 	public List<GameObject> PawnPrefabs;
 	private GameObject SelectedPawn;
@@ -242,7 +246,7 @@ public class TileMap : MonoBehaviour {
 
 		foreach(Node n in set)
 		{
-			Debug.Log(n.X + "-" + n.Y + " => " + n.Depth);
+			//Debug.Log(n.X + "-" + n.Y + " => " + n.Depth);
 			
 			if (IsDoorTile(n.X, n.Y))
 			{

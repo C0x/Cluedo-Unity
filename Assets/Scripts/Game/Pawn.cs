@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pawn : MonoBehaviour {
-
+///<summary>
+/// Attached to Pawn objects
+///</summary>
+public class Pawn : MonoBehaviour 
+{
 	public int Id;
 	public string Name;
 	
@@ -30,6 +33,9 @@ public class Pawn : MonoBehaviour {
 		this.transform.position = Vector3.Lerp(this.transform.position, Map.TileCoordToWorldCoord(TileX, TileY), 5f * Time.deltaTime);		
 	}
 
+	///<summary>
+	/// Moves pawn to next pawn in path
+	///</summary>
 	public void MoveToNextTile()
 	{
 		if (CurrentPath == null)

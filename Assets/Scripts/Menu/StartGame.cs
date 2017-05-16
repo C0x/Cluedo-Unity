@@ -4,8 +4,12 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 
-public class StartGame : MonoBehaviour {
-
+///<summary>
+/// Eventhandler for StartGameScene
+/// Fills Persistent data object to seed Main
+///</summary>
+public class StartGame : MonoBehaviour 
+{
 	public List<CanvasGroup> HideablePanels;
 	public List<InputField> PlayerNames;
 	public List<Toggle> IsCpuToggles;
@@ -18,27 +22,33 @@ public class StartGame : MonoBehaviour {
 		numberOfPlayers = 6;
 	}
 
+	///<summary>
+	/// If dropdown value changed -> create or delete player input
+	///</summary>
 	public void onValueChanged(int index)
 	{
-		Debug.Log("Value changed to: " + index);
+		//Debug.Log("Value changed to: " + index);
 		numberOfPlayers = index + 3;
 
+		//Hide all panels
 		for (int i = index; i < HideablePanels.Count; i++)
 		{
 			HideablePanels[i].alpha = 0;
 		}
 
+		//Show <index> panels
 		for (int i = 0; i < index; i++)
 		{
 			HideablePanels[i].alpha = 1;
 		}
 	}
 
+	///<summary>
+	/// Fill persistentData object with values
+	///</summary>
 	public void Play()
 	{
-		Debug.Log("Play");
-		
-		//TODO: read data & put in persistentData
+		//Debug.Log("Play");		
 		Player[] players = new Player[numberOfPlayers];
 
 		for (int i = 0; i < numberOfPlayers; i++)
@@ -65,16 +75,18 @@ public class StartGame : MonoBehaviour {
 
 		GameObject persistentGO = GameObject.Find("PersistentData");
 		PersistentData persistentData = persistentGO.GetComponent<PersistentData>();
-		persistentData.SaveSettings(players);
+		persistentData.Players = players;
 
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 	}
 
+	///<summary>
+	/// Move back to main menu
+	///</summary>
 	public void Back()
 	{
 		Debug.Log("Back");
 		Destroy(GameObject.Find("PersistentData"));
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
 	}
-
 }

@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 
-public class CameraController : MonoBehaviour {
-
+///<summary>
+/// Script attached to camera (allows player to interact with camera)
+///</summary>
+public class CameraController : MonoBehaviour 
+{
 	[Header("Panning")]
 	public float panSpeed = 20f;
 	public float panBorderThickness = 10f;

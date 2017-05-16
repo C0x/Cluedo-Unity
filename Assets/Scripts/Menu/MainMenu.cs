@@ -1,8 +1,11 @@
 ﻿using UnityEngine.SceneManagement;
 using UnityEngine;
 
-public class MainMenu : MonoBehaviour {
-
+///<summary>
+/// Eventhandler for MainMenuScene
+///</summary>
+public class MainMenu : MonoBehaviour 
+{
 	public void StartGame()
 	{
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); 
@@ -18,5 +21,4 @@ public class MainMenu : MonoBehaviour {
 		Debug.Log("Quit");
 		Application.Quit();
 	}
-
 }

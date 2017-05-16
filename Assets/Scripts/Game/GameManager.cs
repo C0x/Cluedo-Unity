@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour {
-
+///<summary>
+/// Handles data between StartMenu scene & Main scene
+///	Handles cameraviewss
+///	Handles GUI & eventhandlers
+///</summary>
+public class GameManager : MonoBehaviour 
+{
 	[HideInInspector]
 	public int Round = 0;
 
 	public List<CanvasGroup> CollapsablePanels;
 	public List<RawImage> Images;
-	public Camera camera;
-
-
+	public Camera Camera;
 
 	private PersistentData persistentData;
 	private int currentIndex;
@@ -57,7 +60,7 @@ public class GameManager : MonoBehaviour {
 			}			
 		}
 
-
+		
 		if (cameraIsMoving)
 		{
 			switch(cameraView)
@@ -146,8 +149,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	///<summary>
-	///	Loads GUI with values of persistent data
-	/// NOTE: if scene loads instantly without passing by StartGame, all "playing as" is gonna be scarlett (due to lazyness)
+	/// Initializes all possible cameracoords (Main, Dice, ...)
 	///</summary>
 	private void InitCamera()
 	{
@@ -233,11 +235,11 @@ public class GameManager : MonoBehaviour {
 	///</summary>
 	private void MoveCameraToMain()
 	{
-		camera.transform.position = Vector3.Lerp(camera.transform.position, 
+		Camera.transform.position = Vector3.Lerp(Camera.transform.position, 
 												 cameraViewCoords[(int)CameraView.MAIN], 
 												 7f * Time.deltaTime);
 												 
-		if (camera.transform.position == cameraViewCoords[(int)CameraView.MAIN])
+		if (Camera.transform.position == cameraViewCoords[(int)CameraView.MAIN])
 			cameraIsMoving = false;
 	}
 
@@ -246,11 +248,11 @@ public class GameManager : MonoBehaviour {
 	///</summary>
 	private void MoveCameraToDice()
 	{	
-		camera.transform.position = Vector3.Lerp(camera.transform.position, 
+		Camera.transform.position = Vector3.Lerp(Camera.transform.position, 
 												 cameraViewCoords[(int)CameraView.DICE], 
 												 7f * Time.deltaTime);
 
-		if (camera.transform.position == cameraViewCoords[(int)CameraView.DICE])
+		if (Camera.transform.position == cameraViewCoords[(int)CameraView.DICE])
 			cameraIsMoving = false;
 	}
 

@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ClickableTile : MonoBehaviour {
-
+///<summary>
+/// Tiles that where the player can click to move his pawn
+///</summary>
+public class ClickableTile : MonoBehaviour 
+{
 	[HideInInspector]
 	public int TileX;
 	[HideInInspector]
@@ -18,5 +21,4 @@ public class ClickableTile : MonoBehaviour {
 		if (Enabled)
 			Map.CalculatePathTo(TileX, TileY);
 	}
-
 }

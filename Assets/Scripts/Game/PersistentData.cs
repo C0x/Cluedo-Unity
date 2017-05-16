@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 
-public class PersistentData : MonoBehaviour {
-
+///<summary>
+/// Object used to store data between StartView & Main
+///</summary>
+public class PersistentData : MonoBehaviour 
+{
 	[HideInInspector]
 	public Player[] Players;
 
@@ -12,10 +15,4 @@ public class PersistentData : MonoBehaviour {
 	{
 		DontDestroyOnLoad(this.transform.gameObject);
 	}
-
-	public void SaveSettings(Player[] players)
-	{
-		this.Players = players;
-	}
-
 }

@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player {
-
+///<summary>
+/// Plain c# object used to store data between StartView & Main
+///</summary>
+public class Player 
+{
 	private readonly int _number;
 	private readonly string _name;
 	private readonly bool _isCpu;

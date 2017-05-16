@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Die : MonoBehaviour {
-
+///<summary>
+/// Script attached to dice
+///</summary>
+public class Die : MonoBehaviour 
+{
 	public Vector3 beginPosition;
 
 	[HideInInspector]
