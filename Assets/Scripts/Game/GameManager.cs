@@ -10,6 +10,9 @@ public class GameManager : MonoBehaviour {
 
 	public List<CanvasGroup> CollapsablePanels;
 	public List<RawImage> Images;
+	public Camera camera;
+
+
 
 	private PersistentData persistentData;
 	private int currentIndex;
@@ -17,10 +20,21 @@ public class GameManager : MonoBehaviour {
 	private Player[] players;
 	private int numberOfPlayers;
 
+	private TileMap gameBoard;
+
+	private enum CameraView : byte {
+		MAIN = 0,
+		DICE = 1
+	}
+	private CameraView cameraView = CameraView.MAIN;
+	private bool cameraIsMoving = false;
+	private List<Vector3> cameraViewCoords;
+
 
 	void Start () {
 		LoadPersistentData();
 		InitGui();
+		InitCamera();
 
 		currentIndex = 0;
 		ToggleCurrentPlayerPanels();
@@ -28,12 +42,30 @@ public class GameManager : MonoBehaviour {
 
 	void Update()
 	{
+
 		//debug
 		if (Input.GetKeyDown("space"))
 		{
-			ToggleCurrentPlayerPanels();
+			//ToggleCurrentPlayerPanels();
+			cameraIsMoving = true;
+
+			if (cameraView == CameraView.DICE)
+			{
+				cameraView = CameraView.MAIN;
+			} else {
+				cameraView = cameraView = CameraView.DICE;
+			}			
 		}
 
+
+		if (cameraIsMoving)
+		{
+			switch(cameraView)
+			{
+				case CameraView.MAIN: MoveCameraToMain(); break;
+				case CameraView.DICE: MoveCameraToDice(); break;
+			}
+		}
 	}
 
 	///<summary>
@@ -114,6 +146,17 @@ public class GameManager : MonoBehaviour {
 	}
 
 	///<summary>
+	///	Loads GUI with values of persistent data
+	/// NOTE: if scene loads instantly without passing by StartGame, all "playing as" is gonna be scarlett (due to lazyness)
+	///</summary>
+	private void InitCamera()
+	{
+		cameraViewCoords = new List<Vector3>();
+		cameraViewCoords.Add(new Vector3(16f, 45f, -3f)); //Main camera coords
+		cameraViewCoords.Add(new Vector3(-4f, 45f, -3f)); //Dice camera coords
+	}
+
+	///<summary>
 	///	Show panel of current player
 	///</summary>
 	private void ToggleCurrentPlayerPanels()
@@ -149,6 +192,72 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
+	#region eventhandlers
+
+	public void ThrowDice()
+	{
+		Debug.Log("Throw Dice");
+		//gameBoard.ThrowDice();
+	}
+
+	public void ShowCards()
+	{
+		Debug.Log("Show Cards");
+		//gameBoard.ShowCards();
+	}
+
+	public void ShowNotebook()
+	{
+		Debug.Log("Show Notebook");
+		//gameBoard.ShowNotebook();
+	}
+
+	public void MakeGuess()
+	{
+		Debug.Log("Make guess");
+		//gameBoard.MakeGuess();
+	}
+
+	public void EndTurn()
+	{
+		Debug.Log("End turn");
+		//gameBoard.EndTurn();
+	}
+
+	#endregion
+
+	#region cameraSlider
+
+	///<summary>
+	///	Slide camera to mainview
+	///</summary>
+	private void MoveCameraToMain()
+	{
+		camera.transform.position = Vector3.Lerp(camera.transform.position, 
+												 cameraViewCoords[(int)CameraView.MAIN], 
+												 7f * Time.deltaTime);
+												 
+		if (camera.transform.position == cameraViewCoords[(int)CameraView.MAIN])
+			cameraIsMoving = false;
+	}
+
+	///<summary>
+	///	Slide camera to diceview
+	///</summary>
+	private void MoveCameraToDice()
+	{	
+		camera.transform.position = Vector3.Lerp(camera.transform.position, 
+												 cameraViewCoords[(int)CameraView.DICE], 
+												 7f * Time.deltaTime);
+
+		if (camera.transform.position == cameraViewCoords[(int)CameraView.DICE])
+			cameraIsMoving = false;
+	}
+
+	#endregion
+
+	#region debug
+
 	///<summary>
 	///	Debug methud to create a player array if the scene is directly started without going via gamestart
 	///</summary>
@@ -167,5 +276,7 @@ public class GameManager : MonoBehaviour {
 
 		return players;
 	}
+
+	#endregion
 
 }
