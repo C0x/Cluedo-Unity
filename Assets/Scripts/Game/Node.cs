@@ -3,12 +3,15 @@ using UnityEngine;
 
 	public class Node
 	{
+
 		[HideInInspector]
 		public List<Node> Neighbours;
 		[HideInInspector]
 		public int X;
 		[HideInInspector]
 		public int Y;
+		[HideInInspector]
+		public int Depth; //Just nuseful for debugging
 
 		public Node()
 		{

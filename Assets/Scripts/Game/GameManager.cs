@@ -65,6 +65,7 @@ public class GameManager : MonoBehaviour {
 
 	///<summary>
 	///	Loads GUI with values of persistent data
+	/// NOTE: if scene loads instantly without passing by StartGame, all "playing as" is gonna be scarlett (due to lazyness)
 	///</summary>
 	private void InitGui()
 	{
@@ -123,15 +124,12 @@ public class GameManager : MonoBehaviour {
 			CollapsablePanels[numberOfPlayers - 1].alpha = 0;
 		}					
 
-		Debug.Log("CurrentIndex: " + currentIndex);
-
 		if (currentIndex > 0)
 			CollapseAllPanels();
 		CollapsablePanels[currentIndex].alpha = 1;
 
 		for (int i = currentIndex + 1; i < numberOfPlayers; i++) 
 		{
-			Debug.Log(Images[i].transform.position);
 			Images[i].transform.position += new Vector3(185f, 0, 0);
 		}
 

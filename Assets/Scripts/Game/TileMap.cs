@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class TileMap : MonoBehaviour {
@@ -49,6 +50,8 @@ public class TileMap : MonoBehaviour {
 		GenerateMapData();
 		GenerateGraph();
 		GenerateMapVisual();
+
+		FindPossibleTiles(6);
 	}
 
 	void Update()
@@ -186,6 +189,77 @@ public class TileMap : MonoBehaviour {
 	}
 
 	///<summary>
+	///	BFS algorithm
+	/// Highlights possible tiles
+	///</summary>
+	public void FindPossibleTiles(int diceValue)
+	{
+		Debug.Log("Dicevalue: " + diceValue);
+
+		//reset depth of all nodes
+		foreach(Node n in graph)
+		{
+			n.Depth = 0;
+		}
+
+		Node root = graph[ SelectedPawn.GetComponent<Pawn>().TileX,
+						   SelectedPawn.GetComponent<Pawn>().TileY ];
+
+		HashSet<Node> set = new HashSet<Node>();
+		Queue<Node> queue = new Queue<Node>();
+		List<Node> possibleNodes = new List<Node>();
+
+		set.Add(root);
+		queue.Enqueue(root);
+		queue.Enqueue(null);
+		int depth = 1;
+
+		while (queue.Count > 0)
+		{
+			Node current = queue.Dequeue();
+
+			if (current == null)
+			{
+				depth++;
+				queue.Enqueue(null);
+				if (queue.First() == null) break; //two nulls in a row
+				else continue;
+			}
+
+			if (depth > diceValue)
+				break;
+
+			foreach(Node n in current.Neighbours)
+			{
+				if (!set.Contains(n) && PawnCanEnterTile(n.X, n.Y))
+				{
+					set.Add(n);
+					n.Depth = depth;
+					queue.Enqueue(n);
+				}
+			}
+		}
+
+		foreach(Node n in set)
+		{
+			Debug.Log(n.X + "-" + n.Y + " => " + n.Depth);
+			
+			if (IsDoorTile(n.X, n.Y))
+			{
+				possibleNodes.Add(n);
+				HighlightTile(n.X, n.Y);
+				continue;
+			}
+
+			if (n.Depth == diceValue)
+			{
+				HighlightTile(n.X, n.Y);
+				possibleNodes.Add(n);
+			}
+		}
+	}
+
+	///<summary>
 	///	Dijkstra's algorithm
 	/// Assigns current pawn the current path
 	///</summary>
@@ -309,6 +383,25 @@ public class TileMap : MonoBehaviour {
 		}
 	}
 
+	///<summary>
+	///	Check if tile is doortile or not
+	///</summary>
+	private bool IsDoorTile(int x, int y)
+	{
+		return (tiles[x, y] == ETileType.DOOR);
+	}
+
+	///<summary>
+	///	Sets tile visible with colorfader enabled
+	///</summary>
+	private void HighlightTile(int x, int y)
+	{
+		GameObject t = GameObject.Find("Tile" + x + "-" + y);
+		ClickableTile ct = t.GetComponent<ClickableTile>();
+		ct.Enabled = true;
+		ct.GetComponent<Renderer>().enabled = true;
+		ct.GetComponent<ColorFader>().IsEnabled = true;
+	}
 
 	#region Debug methods
 

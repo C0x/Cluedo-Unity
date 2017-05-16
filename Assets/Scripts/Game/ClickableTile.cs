@@ -10,10 +10,13 @@ public class ClickableTile : MonoBehaviour {
 	public int TileY;
 	[HideInInspector]
 	public TileMap Map;
+	
+	public bool Enabled = false;
 
 	void OnMouseUp()
 	{
-		Map.CalculatePathTo(TileX, TileY);
+		if (Enabled)
+			Map.CalculatePathTo(TileX, TileY);
 	}
 
 }
