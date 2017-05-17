@@ -12,9 +12,11 @@ It's a personal project and I find GitHub an easy way to use as a backup, but fe
 
 ### Credits
 While it's my goal to learn about modeling & texturing, I still used some existing assets for the
-more complex models.
+more complex models (mainly because of the steep learning curve + patience).
 
 - Revolver: https://www.youtube.com/watch?v=Hq1nc6RXobw
+- Wrench: http://u3d.as/xTW
+- Dagger: http://u3d.as/Mtv
 
 ### Screenshots
 Screenshots of early development:
